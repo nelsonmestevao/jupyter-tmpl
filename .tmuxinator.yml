@@ -1,0 +1,20 @@
+name: analysis
+root: .
+
+startup_window: python
+startup_pane: ipython
+
+windows:
+  - python:
+      layout: main-vertical
+      panes:
+        - ipython:
+            - source .venv/bin/activate
+            - ipython
+  - jupyter:
+      layout: main-vertical
+      panes:
+        - jupyter:
+          - bin/jupyter
+  - shell:
+      - source .venv/bin/activate

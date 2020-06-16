@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+. scripts/helpers.sh
+. scripts/config.sh
+
+function display_help() {
+  cat <<EOF
+    FORMATS
+        export pdf
+
+    OPTIONS
+        export -h, --help
+EOF
+}
+
+source .venv/bin/activate
+
+function export_pdf() {
+  echo_info "export" "Generating PDFs"
+  for notebook in notebooks/*.ipynb; do
+    python3 -m jupyter nbconvert "$notebook" --to pdf --output-dir="$OUT_DIR"
+    echo_done "$notebook"
+  done
+}
+
+case $1 in
+  -h | --help)
+    display_help
+    ;;
+  pdf)
+    export_pdf
+    ;;
+  *)
+    display_help >&2
+    exit 1
+    ;;
+esac
+
